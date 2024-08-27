@@ -20,24 +20,30 @@
         $user = $_POST['username'];
         $pass = $_POST['password'];
 
-        // Verifica che i campi non siano vuoti
-        if (empty($user) || empty($pass)) {
-            $_SESSION['error'] = "Username and password cannot be empty.";
-            header("Location: index.php");
-            exit();
-        }
-
         // Query SQL vulnerabile a SQL Injection
         $sql = "SELECT * FROM users WHERE username = '$user' AND password = '$pass'";
-        $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            $_SESSION['success'] = "Login successful!";
-            header("Location: home.php");
+        // multi_query per supportare query multiple (piggybacked queries)
+        if ($conn->multi_query($sql)) {
+            do {
+                // Store first result set
+                if ($result = $conn->store_result()) {
+                    if ($result->num_rows > 0) {
+                        $_SESSION['success'] = "Login successful!";
+                        $_SESSION['username'] = $user;
+                        header("Location: home.php");
+                    } else {
+                        $_SESSION['error'] = "Invalid username or password.";
+                        header("Location: index.php");
+                    }
+                    $result->free();
+                }
+                // Prepare for the next result set
+            } while ($conn->next_result());
         } else {
-            $_SESSION['error'] = "Invalid username or password.";
             header("Location: index.php");
         }
+    
 
         $conn->close();
         exit(); 

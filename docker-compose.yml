@@ -2,6 +2,7 @@ version: '3.8'
 services:
   web:
     build: .
+    container_name: sqli-example-web
     ports:
       - "8080:80"
     depends_on:
@@ -9,6 +10,7 @@ services:
 
   db:
     image: mysql:5.7
+    container_name: sqli-example-db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: sqli_db

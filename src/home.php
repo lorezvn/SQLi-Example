@@ -25,10 +25,12 @@ $username = $_SESSION['username'];
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center">Welcome!</h1>
-        <div class="text-center mt-4">
-            <p>You have successfully logged in</p>
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="text-center">Welcome, <?php echo $username?>!</h1>
+            <div class="text-center mt-4">
+                <p>You have successfully logged in</p>
+            </div>
         </div>
     </div>
 

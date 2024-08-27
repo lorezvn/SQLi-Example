@@ -32,12 +32,12 @@
                     <label for="username">Username</label>
                     <input type="text" class="form-control" name="username" placeholder="Enter username" autocomplete="off">
                 </div>
-                <div class="form-group mb-3">
+                <div class="form-group mb-4">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Enter password" autocomplete="off">
                 </div>
-                <div class="d-grid mt-3">
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-block">Continue</button>
                 </div>
             </form>
         </div>

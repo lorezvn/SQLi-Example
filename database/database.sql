@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 INSERT INTO users (username, password) VALUES
-    ('test', 'secret'),
     ('user', 'password'),
+    ('test', 'secret-password'),
     ('admin', 'admin');
 
 

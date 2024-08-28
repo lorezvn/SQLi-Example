@@ -26,7 +26,6 @@
         // multi_query per supportare query multiple (piggybacked queries)
         if ($conn->multi_query($sql)) {
             do {
-                // Store first result set
                 if ($result = $conn->store_result()) {
                     if ($result->num_rows > 0) {
                         $_SESSION['success'] = "Login successful!";
@@ -38,13 +37,12 @@
                     }
                     $result->free();
                 }
-                // Prepare for the next result set
             } while ($conn->next_result());
         } else {
+            $_SESSION['error'] = "An error occurred. Please try again.";
             header("Location: index.php");
         }
     
-
         $conn->close();
         exit(); 
 

@@ -8,15 +8,14 @@
         $password = "password";
         $dbname = "sqli_db";
 
-        // Crea la connessione
+        // Crea la connessione col database
         $conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Verifica la connessione
+        // Verifica la connessione col database
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // Ricevi i dati POST
         $user = $_POST['username'];
         $pass = $_POST['password'];
 
@@ -32,14 +31,15 @@
                         $_SESSION['username'] = $user;
                         header("Location: home.php");
                     } else {
-                        $_SESSION['error'] = "Invalid username or password.";
+                        $_SESSION['error'] = "Invalid username or password: no match found in table users";
                         header("Location: index.php");
                     }
                     $result->free();
                 }
             } while ($conn->next_result());
         } else {
-            $_SESSION['error'] = "An error occurred. Please try again.";
+            // Errori SQL (il codice è ancora piu' vulnerabile perche' rivela importanti informazioni all'utente malintenzionato)
+            $_SESSION['error'] = "SQL Error: " . $conn->error; 
             header("Location: index.php");
         }
     
